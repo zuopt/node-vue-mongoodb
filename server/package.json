@@ -8,18 +8,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
-    "element-ui": "^2.4.5",
     "express": "^4.17.1",
     "gyp": "^0.5.0",
     "http-assert": "^1.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.6",
-    "vue": "^2.6.11",
-    "vue-router": "^3.4.3"
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
