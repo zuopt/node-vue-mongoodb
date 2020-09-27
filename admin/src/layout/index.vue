@@ -1,13 +1,20 @@
 <template>
     <el-container style="height: 100vh; border: 1px solid #eee">
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-            <el-menu router :default-active='activeMenu' :default-openeds="['1']">
+            <el-menu router :default-active='activeMenu'>
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-message"></i>内容管理
+                        <i class="el-icon-document-copy"></i>内容管理
                     </template>
                     <el-menu-item index="/articles/index">文章列表</el-menu-item>
                     <el-menu-item index="/articles/create">新建文章</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-s-custom"></i>人员管理
+                    </template>
+                    <el-menu-item index="/employee/list">人员列表</el-menu-item>
+                    <el-menu-item index="/employee/add">新增人员</el-menu-item>
                 </el-submenu>
             </el-menu>
         </el-aside>

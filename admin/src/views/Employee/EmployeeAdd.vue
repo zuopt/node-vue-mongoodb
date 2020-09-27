@@ -1,20 +1,26 @@
 <template>
-    <el-form @submit.native.prevent="onSubmit" ref="form" :model="article" label-width="80px">
-        <el-form-item label="文章标题">
-          <el-input v-model="article.title"></el-input>
+    <el-form @submit.native.prevent="onSubmit" ref="form" :model="model" label-width="80px">
+        <el-form-item label="姓名">
+          <el-input v-model="model.name"></el-input>
         </el-form-item>
-        <el-form-item label="封面图">
+        <el-form-item label="电话">
+          <el-input v-model="model.telephone"></el-input>
+        </el-form-item>
+        <el-form-item label="地址">
+          <el-input v-model="model.address"></el-input>
+        </el-form-item>
+        <el-form-item label="头像">
             <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'"
                 :show-file-list="false" :on-success="afterUpload">
-                <img v-if="model.icon" :src="model.icon" class="avatar">
+                <img v-if="model.avatar" :src="model.avatar" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
         </el-form-item>
-        <el-form-item label="文章内容">
-          <el-input type="textarea" v-model="article.body"></el-input>
+        <el-form-item label="说明">
+          <el-input type="textarea" v-model="model.description"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" native-type="submit">立即创建</el-button>
+          <el-button type="primary" native-type="submit">立即添加</el-button>
           <el-button>取消</el-button>
         </el-form-item>
     </el-form>
@@ -23,28 +29,25 @@
     export default {
       data() {
         return {
-            article:{
-                
-            },
             model:{
-                icon:''
+                avatar:''
             }
         }
       },
       methods: {
         onSubmit() {
-            this.$http.post('articles',this.article).then(res => {
+            this.$http.post('employee',this.model).then(res => {
                 console.log(res.data)
                 this.$message({
                     type:'success',
-                    message:'新建成功！'
+                    message:'添加成功！'
                 })
-                this.$router.push('/articles/index')
+                this.$router.push('/employee/list')
             })
         },
         afterUpload(res){
-            this.model.icon = res.url;
-            console.log(this.model.icon)
+            this.model.avatar = res.url;
+            console.log(this.model.avatar)
         }
       }
     }
@@ -66,15 +69,15 @@
     .avatar-uploader-icon {
         font-size: 28px;
         color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
         text-align: center;
     }
 
     .avatar {
-        width: 178px;
-        height: 178px;
+        width: 100px;
+        height: 100px;
         display: block;
     }
   </style>

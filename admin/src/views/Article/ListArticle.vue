@@ -3,6 +3,14 @@
         <el-table :data="articles">
             <el-table-column prop="title" label="标题" width="140">
             </el-table-column>
+            <el-table-column label="图标" width="120">
+                <template slot-scope="{row}">
+                     <el-image
+                        style="width: 100px; height: 100px"
+                        :src="row.icon"
+                    ></el-image>
+                </template>
+            </el-table-column>
             <el-table-column prop="body" label="内容" width="120">
             </el-table-column>
             <el-table-column label="操作" width="120">

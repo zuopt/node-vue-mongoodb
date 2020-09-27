@@ -1,6 +1,11 @@
-import ListArticle from '@/views/ListArticle'
-import CreateArticle from '@/views/CreateArticle'
-import EditArticle from '@/views/EditArticle'
+import ListArticle from '@/views/Article/ListArticle'
+import CreateArticle from '@/views/Article/CreateArticle'
+import EditArticle from '@/views/Article/EditArticle'
+
+import EmployeeAdd from '@/views/Employee/EmployeeAdd'
+import EmployeeList from '@/views/Employee/EmployeeList'
+import EmployeeEdit from '@/views/Employee/EmployeeEdit'
+
 import Login from '@/views/Login'
 import Layout from '@/layout/index'
 
@@ -27,15 +32,34 @@ export default [
             },
             {
                 path: '/articles/index',
-                name: 'list-article',
+                name: 'article-list',
                 component: ListArticle,
                 meta:{title:'文章列表'},
             },
+            {
+                path:'/employee/list',
+                name:'employee-list',
+                component:EmployeeList,
+                meat:{title:'员工列表'}
+            },
+            {
+                path: '/employee/add',
+                name: 'employee-add',
+                component: EmployeeAdd,
+                meat: { title: '新增员工' }
+            },
+            {
+                path: '/employee/:id/edit',
+                name: 'employee-edit',
+                component: EmployeeEdit,
+                meat: { title: '编辑员工' }
+            }
         ]
     },
     {
         path: '/login',
         name: 'login',
+        meta: { isPublic:true},
         component: Login,
         meta:{title:'登录'},
     },

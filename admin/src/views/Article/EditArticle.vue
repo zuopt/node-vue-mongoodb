@@ -5,6 +5,13 @@
             <el-form-item label="文章标题">
                 <el-input v-model="article.title"></el-input>
             </el-form-item>
+            <el-form-item label="封面图">
+            <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'"
+                :show-file-list="false" :on-success="afterUpload">
+                <img v-if="article.icon" :src="article.icon" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            </el-form-item>
             <el-form-item label="文章内容">
                 <el-input type="textarea" v-model="article.body"></el-input>
             </el-form-item>
@@ -38,7 +45,7 @@
                     console.log(res.data)
                     this.$message({
                         type: 'success',
-                        message: '新建成功！'
+                        message: '编辑成功！'
                     })
                     this.$router.push('/articles/index')
                 })

@@ -1,6 +1,6 @@
 module.exports = app => {
     const express = require('express')
-    const { Article,User } = require('./model')
+    const { Article,User,Employee } = require('./model')
     const jwt = require('jsonwebtoken')
     const SECRET = 'mojoiewnof15'
 
@@ -44,32 +44,29 @@ module.exports = app => {
     })
     
     //新增文章
-    router.post('/api/articles',async (req,res) =>{
+    router.post('/api/articles', auth ,async (req,res) =>{
         const article = await Article.create((req.body))
         res.send(article)
     })
-    
     // 文章列表
     router.get('/api/articles', auth, async (req,res) => {
         const articles = await Article.find()
         res.send(articles)
     })
-    
     // 删除文章
-    router.delete('/api/articles/:id',async (req,res)=>{
+    router.delete('/api/articles/:id', auth, async (req,res)=>{
         await Article.findByIdAndDelete(req.params.id)
         res.send({
             status:true
         })
     })
     // 获取文章
-    router.get('/api/articles/:id',async (req,res) => {
+    router.get('/api/articles/:id', auth,async (req,res) => {
         let article = await Article.findById(req.params.id)
         res.send(article)
     })
-    
     // 修改文章
-    router.put('/api/articles/:id', async (req,res) => {
+    router.put('/api/articles/:id', auth, async (req,res) => {
         let article = await Article.findByIdAndUpdate(req.params.id,req.body)
         res.send(article)
     })
@@ -108,16 +105,43 @@ module.exports = app => {
     })
 
     //用户列表
-    router.get('/api/userlist', async (req, res) => {
+    router.get('/api/userlist', auth, async (req, res) => {
         let users = await User.find()
         res.send(users)
     })
 
-    //个人信息
-    router.get('/api/profile', async(req,res) =>{
-        res.send(user)
+    //员工列表
+    router.get('/api/employees',auth,async (req,res) => {
+        let employees = await Employee.find()
+        res.send(employees)
     })
 
+    //添加员工
+    router.post('/api/employee',auth,async (req,res) => {
+        let employee = await Employee.create(req.body)
+        res.send(employee)
+    })
+
+    //删除员工
+    router.delete('/api/employee/:id',auth,async (req,res) => {
+        let employee = await Employee.findByIdAndDelete(req.params.id)
+        res.send(employee)
+    })
+
+    //获取员工
+    router.get('/api/employee/:id', auth, async (req, res) => {
+        let employee = await Employee.findById(req.params.id)
+        res.send(employee)
+    })
+
+    //修改员工
+    router.put('/api/employee/:id',auth,async (req,res) => {
+        let employee = await Employee.findByIdAndUpdate(req.params.id,req.body)
+        console.log(employee)
+        res.send(employee)
+    })
+
+    // 上传图片
     const multer = require('multer')
     const upload = multer({dest:__dirname + '/../server/uploads'})
     app.post('/api/upload',upload.single('file'),async (req,res) => {
