@@ -8,7 +8,7 @@ module.exports = app => {
         mergeParams:true
     })
 
-   const auth = async (req,res,next) => {
+    const auth = async (req,res,next) => {
         let raw = String(req.headers.authorization || '').split(' ').pop()
         if(!raw){
             res.status(401).send({

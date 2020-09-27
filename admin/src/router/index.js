@@ -13,4 +13,11 @@ const createRouter = () => new VueRouter({
 
 const router = createRouter()
 
+router.beforeEach((to, from, next) => {
+    if (!sessionStorage.token) {
+        return next('/login')
+    }
+    next()
+})
+
 export default router
