@@ -1,0 +1,30 @@
+@url = http://localhost:3001/api
+@json = Content-Type: application/json
+
+### 获取文章列表
+get {{url}}/articles
+
+### 用户注册
+post {{url}}/register
+{{json}}
+
+{
+    "username":"wangman",
+    "password":"123456"
+}
+
+### 用户登录
+post {{url}}/login
+{{json}}
+
+{
+    "username":"youyou",
+    "password":"123456"
+}
+
+### 用户列表
+get {{url}}/userlist
+
+### 个人信息
+get {{url}}/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmNhYTI2MTQ1ZmI2MjkzNGQzNWE0YyIsImlhdCI6MTYwMTA5MzA2OH0.SYyEBrC1EToqp47vj4ow1U0z6qeysJjxME9XJevaoss
