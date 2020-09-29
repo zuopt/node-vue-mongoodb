@@ -12,8 +12,10 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "gyp": "^0.5.0",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.3"
+    "vue-router": "^3.4.3",
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

@@ -6,6 +6,8 @@ import EmployeeAdd from '@/views/Employee/EmployeeAdd'
 import EmployeeList from '@/views/Employee/EmployeeList'
 import EmployeeEdit from '@/views/Employee/EmployeeEdit'
 
+import UserList from '@/views/User/UserList'
+
 import Login from '@/views/Login'
 import Layout from '@/layout/index'
 
@@ -40,20 +42,26 @@ export default [
                 path:'/employee/list',
                 name:'employee-list',
                 component:EmployeeList,
-                meat:{title:'员工列表'}
+                meta:{title:'员工列表'}
             },
             {
                 path: '/employee/add',
                 name: 'employee-add',
                 component: EmployeeAdd,
-                meat: { title: '新增员工' }
+                meta: { title: '新增员工' }
             },
             {
                 path: '/employee/:id/edit',
                 name: 'employee-edit',
                 component: EmployeeEdit,
-                meat: { title: '编辑员工' }
-            }
+                meta: { title: '编辑员工' }
+            }, 
+            {
+                path: '/user/list',
+                name: 'user-list',
+                component: UserList,
+                meta: { title: '管理员列表' }
+            },
         ]
     },
     {

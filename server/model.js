@@ -10,6 +10,7 @@ mongoose.connect('mongodb://localhost:27017/element-admin',{
 const articleSchema = new mongoose.Schema({
     title:{type:String},
     icon:{type:String},
+    des:{type:String},
     body:{type:String},
 })
 const Article = mongoose.model('Article',articleSchema)

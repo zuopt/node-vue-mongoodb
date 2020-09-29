@@ -50,8 +50,18 @@ module.exports = app => {
     })
     // 文章列表
     router.get('/api/articles', auth, async (req,res) => {
-        const articles = await Article.find()
-        res.send(articles)
+        let pageNumber =Number(req.query.pageNumber)
+        let pageSize = Number(req.query.pageSize)
+        const totalElements = await Article.find().count()
+        const articles = await Article.find().skip((pageNumber - 1) * pageSize).limit(pageSize)
+        const data = {
+            pageNumber,
+            pageSize,
+            totalPages:Math.ceil(totalElements/pageSize),
+            totalElements: String(totalElements),
+            content:articles
+        }
+        res.send(data)
     })
     // 删除文章
     router.delete('/api/articles/:id', auth, async (req,res)=>{
@@ -71,7 +81,7 @@ module.exports = app => {
         res.send(article)
     })
 
-    // 用户注册
+    // 新增管理员
     router.post('/api/register', async (req,res) => {
         let isRegister = await User.findOne({username:req.body.username})
         if(isRegister){
@@ -83,9 +93,14 @@ module.exports = app => {
         res.send(user)
     })
 
-    // 用户登录
+    // 删除管理员
+    router.delete('/api/user/:id', async (req,res) => {
+        let user = await User.findByIdAndDelete(req.params.id)
+        res.send(user)
+    })
+
+    // 管理员登录
     router.post('/api/login', async (req,res) => {
-        console.log(req.body)
         let user = await User.findOne({username:req.body.username})
         if(!user){
             res.status(422).send({
@@ -97,7 +112,6 @@ module.exports = app => {
         const token = jwt.sign({
             id:user._id
         },SECRET)
-
         res.send({
             user,
             token
@@ -105,9 +119,19 @@ module.exports = app => {
     })
 
     //用户列表
-    router.get('/api/userlist', auth, async (req, res) => {
-        let users = await User.find()
-        res.send(users)
+    router.get('/api/userlist', async (req, res) => {
+        let pageNumber = Number(req.query.pageNumber)
+        let pageSize = Number(req.query.pageSize)
+        const totalElements = await User.find().count()
+        const users = await User.find().skip((pageNumber - 1) * pageSize).limit(pageSize)
+        const data = {
+            pageNumber,
+            pageSize,
+            totalPages: Math.ceil(totalElements / pageSize),
+            totalElements: String(totalElements),
+            content: users
+        }
+        res.send(data)
     })
 
     //员工列表
@@ -137,7 +161,6 @@ module.exports = app => {
     //修改员工
     router.put('/api/employee/:id',auth,async (req,res) => {
         let employee = await Employee.findByIdAndUpdate(req.params.id,req.body)
-        console.log(employee)
         res.send(employee)
     })
 

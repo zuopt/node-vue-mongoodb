@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2></h2>
         <el-form @submit.native.prevent="saveArticle" ref="form" :model="article" label-width="80px">
             <el-form-item label="文章标题">
                 <el-input v-model="article.title"></el-input>
@@ -12,8 +11,11 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
             </el-form-item>
+            <el-form-item label="文章描述">
+                <el-input type="textarea" v-model="article.des" />
+            </el-form-item>
             <el-form-item label="文章内容">
-                <el-input type="textarea" v-model="article.body"></el-input>
+                <vue-editor v-model="article.body" useCustomImageHandler @image-added="handleImageAdded"></vue-editor>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" native-type="submit">保存</el-button>
@@ -23,7 +25,11 @@
     </div>
 </template>
 <script>
+    import { VueEditor } from 'vue2-editor'
     export default {
+        components:{
+            VueEditor
+        },
         data() {
             return {
                 article: {
@@ -49,7 +55,18 @@
                     })
                     this.$router.push('/articles/index')
                 })
-            }
+            },
+            afterUpload(res){
+                this.article.icon = res.url;
+                console.log(this.article.icon)
+            },
+            async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+                const formData = new FormData();
+                formData.append("file", file);
+                const res = await this.$http.post("upload", formData);
+                Editor.insertEmbed(cursorLocation, "image", res.data.url);
+                resetUploader();
+            },
         }
     }
 </script>

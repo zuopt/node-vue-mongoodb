@@ -34,7 +34,7 @@
                             </div>
                             <br>
                             <input v-model='user.password' id="j_password_ext" name="j_password_ext" type="password" tabindex="2"
-                                class="c_input" value="" placeholder="Password"
+                                class="c_input" value="" placeholder="Password" @keyup.enter="login"
                                 style="padding-top: 2px; height: 26px; font-size: 18px; font-family:'Georgia', Georgia, 'Times New Roman', Times, 'Microsoft YaHei', SimSun, SimHei, serif Georgia, 'Times New Roman', Times, 'Microsoft YaHei', SimSun, SimHei, serif; width: 260px; margin-left: -5px; border: 1px #3399ff solid;" />
                         </div>
                         <div id="logindiv" style="margin-bottom: 14px;">
@@ -69,7 +69,7 @@
                     message:`欢迎你，${user.data.user.username} ！`
                 })
                 sessionStorage.setItem('token',user.data.token)
-                sessionStorage.setItem('username',JSON.stringify(user.data.user.username))
+                sessionStorage.setItem('username',user.data.user.username)
                 this.$router.push('/')
             }
         }
