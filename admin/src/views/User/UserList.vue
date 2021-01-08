@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="padding-bottom:20px">
-            <el-button type="primary" @click="dialogFormVisible = true">新增</el-button>
+            <el-button type="primary" @click="addUser">新增</el-button>
         </div>
          <StandardTable
             :data="model"
@@ -20,7 +20,7 @@
                 </template>
             </el-table-column>
         </StandardTable>
-        <el-dialog title="新增管理员" :visible.sync="dialogFormVisible" width="500px">
+        <el-dialog :title="isAdd ? '新增管理员':'编辑管理员'" :visible.sync="dialogFormVisible" width="500px">
             <el-form :model="user">
                 <el-form-item label="用户名" label-width="80px">
                     <el-input v-model="user.username" autocomplete="off"></el-input>
@@ -47,13 +47,15 @@ import StandardTable from '@/components/StandardTable'
             return {
                 dialogFormVisible:false,
                 model: [],
-                user:{},
+                user:{username:''},
                 pageLoading:false,
                 pageTotal:0,
                 pageQuery:{
                     pageNumber:1,
                     pageSize:10
-                }
+                },
+                isAdd:true,
+                editId:''
             };
         },
         created() {
@@ -69,7 +71,12 @@ import StandardTable from '@/components/StandardTable'
                 })
             },
             edit(id){
-                
+              this.isAdd = false
+              this.dialogFormVisible = true
+              this.editId = id
+              this.$http.get(`/user/${id}`).then(res => {
+                this.user.username = res.data.username
+              })
             },
             async remove(row){
                 this.$confirm(`此操作将删除管理员${row.username}, 是否继续?`, '提示', {
@@ -91,13 +98,29 @@ import StandardTable from '@/components/StandardTable'
                 });
             },
             async createUser(){
+              if(this.isAdd){
                 let user = await this.$http.post('register',this.user)
+                if(!user) return
                 this.$message({
                     type:'success',
                     message:'添加成功！'
                 })
                 this.dialogFormVisible = false
                 this.fetch()
+              }else {
+                let user = await this.$http.put(`user/${this.editId}`,this.user)
+                if(!user) return
+                this.$message({
+                    type:'success',
+                    message:'更新成功！'
+                })
+                this.dialogFormVisible = false
+                this.fetch()
+              }
+            },
+            addUser(){
+              this.isAdd = true
+              this.dialogFormVisible = true
             }
         }
     };
