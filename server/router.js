@@ -98,6 +98,19 @@ module.exports = app => {
         let user = await User.findByIdAndDelete(req.params.id)
         res.send(user)
     })
+    
+    //获取管理员
+    router.get('/api/user/:id', async (req,res) => {
+      let user = await User.findById(req.params.id)
+      res.send(user)
+    })
+
+    //更新管理员
+    router.put('/api/user/:id', async (req,res) => {
+      await User.findByIdAndUpdate(req.params.id,req.body)
+      let updatauser = await User.findById(req.params.id)
+      res.send(updatauser)
+    })
 
     // 管理员登录
     router.post('/api/login', async (req,res) => {
