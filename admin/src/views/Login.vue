@@ -5,7 +5,7 @@
             </div>
             <div style="height: 50px; line-height: 50px; color: white; background-color: white;">
                 <h2 style="font-size: 22px; padding-left: 40px; background-color: #09c; margin-right: 20px;">
-                    QINGDENGLU.com
+                    ZHUANGXIU.com
                 </h2>
             </div>
             <img id=imgcorner src="http://res.scholat.com/scholat/images/login_corner.png"

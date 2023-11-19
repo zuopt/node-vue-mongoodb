@@ -8,15 +8,22 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.0",
+    "compressing": "^1.6.2",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "got": "^12.3.0",
     "gyp": "^0.5.0",
     "http-assert": "^1.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.6",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "node-gzip": "^1.1.2",
+    "node-stream-zip": "^1.15.0",
+    "nvm": "0.0.4",
+    "unzip": "^0.1.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
